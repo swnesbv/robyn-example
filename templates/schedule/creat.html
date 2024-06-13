@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %} create schedule {% endblock %}
+
+{% block content %}
+
+<h1 class="container lead my-3">create schedule</h1>
+	
+<form class="card" method="POST">
+	
+	<div class="card-body">
+	<sup>title</sup>
+	<input required type="text" name="title" class="form-control">
+	<sup>description</sup>
+	<input required type="text" name="description" class="form-control">
+	</div>
+
+    <div class="card-body row">
+	    <div class="col-sm">
+	        <sup class="float-start">start</sup>
+	        <input
+	        	required
+	            class="form-control my-2"
+	            type="datetime-local"
+	            name="start"
+	        />
+	    </div>
+	    <div class="col-sm">
+	        <sup class="float-start">end</sup>
+	        <input
+	        	required
+	            class="form-control my-2"
+	            type="datetime-local"
+	            name="end"
+	        />
+	    </div>
+	</div>
+
+    <div id="addinput" class="card-body">
+    	<sup class="float-start">the beginning of the reception</sup>
+	</div>
+
+    <div class="card-footer action-buttons">
+    <button class="btn btn-sm btn-outline-primary" onclick="addFn(); return false;">
+    	make an appointment - add Input
+    </button>
+	</div>
+
+	<div class="card-footer action-buttons">
+	<input type="submit" value="submit" class="btn btn-sm btn-outline-primary mt-2">
+	</div>
+
+</form>
+
+<script>
+    function addFn() {
+        const divEle = document.getElementById("addinput");
+        const wrapper = document.createElement("div");
+        const iFeild = document.createElement("input");
+        iFeild.setAttribute("type", "datetime-local");
+        iFeild.setAttribute("name", "list");
+        iFeild.setAttribute("placeholder", "Enter value");
+        iFeild.classList.add("form-control");
+        iFeild.classList.add("mt-2");
+        wrapper.appendChild(iFeild);
+        divEle.appendChild(wrapper);
+    }
+</script>
+	  
+{% endblock %}

@@ -1,0 +1,14 @@
+robyn
+sqlalchemy[asyncio]
+aiosqlite
+pydantic
+passlib
+psycopg2-binary
+python-decouple
+PyJWT
+python-magic-bin
+python-multipart
+Pillow
+asyncpg
+whitenoise
+Jinja2

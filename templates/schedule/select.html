@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %} select schedule {% endblock %}
+
+{% block content %}
+
+<h1 class="container lead my-3">select all schedule</h1>
+	
+{% if result %}
+{% for i in result %}
+<div class="card">
+
+	<div class="card-body">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<span class="badge text-bg-primary">completed</span> {{ i.completed }}
+				<span class="badge text-bg-light">id</span>{{ i.id }}
+				<span class="badge text-bg-light">owner</span>{{ i.owner }}
+			</li>
+			<li class="list-group-item">
+			<span class="badge text-bg-light">start</span>
+			{{ i.st_hour }}
+			<span class="badge text-bg-light">end</span>
+			{{ i.en_hour }}
+
+			</li>
+		</ul>
+		{% if i.hours %}
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<span class="badge text-bg-success">list hours</span>
+				<p>
+				{% for i in i.hours %}
+				{{ i }},
+				{% endfor %}
+				</p>
+			</li>
+		</ul>
+		{% endif %}
+		{% if i.occupied %}
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<span class="badge text-bg-danger">list occupied</span>
+				<p>
+				{% for i in i.occupied %}
+				{{ i }},
+				{% endfor %}
+				</p>
+			</li>
+		</ul>
+		{% endif %}
+
+		<ul class="list-group list-group-flush">
+
+			<li class="list-group-item">
+				{{ i.title }}
+			</li>
+			<li class="list-group-item">
+				{{ i.description }}
+			</li>
+			
+			<li class="list-group-item">
+			<span class="badge text-bg-light">created</span>
+			<time>
+			{{ i.created_at }}
+			</time>
+			</li>
+			<li class="list-group-item">
+			{% if i.modified_at %}
+			<sup>updated</sup> 
+			<time>
+			{{ i.modified_at }}
+			</time>
+			{% endif %}
+			</li>
+		</ul>
+	</div>
+
+	<div class="card-footer">
+	<a class="btn btn-outline-primary btn-sm" href="/schedule/detail/{{ i.id }}" role="button">
+		details
+	</a>
+	</div>
+
+</div>
+
+<hr>
+{% endfor %}
+{% endif %}
+	  
+{% endblock %}

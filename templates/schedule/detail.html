@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %} detail schedule {% endblock %}
+
+{% block content %}
+
+<h1 class="container lead my-3">detail schedule</h1>
+	
+{% if result %}
+<div class="card">
+
+	<div class="card-body">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<span class="badge text-bg-primary">completed</span> {{ result.completed }}
+				<span class="badge text-bg-light">id</span>{{ result.id }}
+				<span class="badge text-bg-light">owner</span>{{ result.owner }}
+			</li>
+			<li class="list-group-item">
+			<span class="badge text-bg-light">start</span>
+			{{ result.st_hour }}
+			<span class="badge text-bg-light">end</span>
+			{{ result.en_hour }}
+
+			</li>
+		</ul>
+		{% if result.hours %}
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<span class="badge text-bg-success">list hours</span>
+				<p>
+				{% for i in result.hours %}
+				{{ i }},
+				{% endfor %}
+				</p>
+			</li>
+		</ul>
+		{% endif %}
+		{% if result.occupied %}
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">
+				<span class="badge text-bg-danger">list occupied</span>
+				<p>
+				{% for i in result.occupied %}
+				{{ i }},
+				{% endfor %}
+				</p>
+			</li>
+		</ul>
+		{% endif %}
+
+
+		{% if result.occupied %}
+        {% for i in obj_list %}
+		<form class="card" method="POST">
+		<div class="card-body">
+			<span class="badge text-bg-light">the beginning of the reception</span>
+			{{ i }}
+			<div class="card-footer action-buttons">
+	        <input
+	        	required
+	            class="form-control my-2 date"
+	            type="hidden"
+	            name="date"
+	            value="{{ result.st_hour }}"
+	        />
+	        <input
+	        	required
+	            class="form-control my-2 hour"
+	            type="hidden"
+	            name="hour"
+	            value="{{ i }}"
+	        />
+			<input type="submit" value="submit" class="btn btn-sm btn-outline-primary mt-2">
+			</div>
+	    </div>
+		</form>
+        {% endfor %}
+        {% else %}
+        {% for i in result.hours %}
+		<form class="card" method="POST">
+		<div class="card-body">
+			<span class="badge text-bg-light">the beginning of the reception</span>
+			{{ i }}
+			<div class="card-footer action-buttons">
+	        <input
+	        	required
+	            class="form-control my-2 date"
+	            type="hidden"
+	            name="date"
+	            value="{{ result.st_hour }}"
+	        />
+	        <input
+	        	required
+	            class="form-control my-2 hour"
+	            type="hidden"
+	            name="hour"
+	            value="{{ i }}"
+	        />
+			<input type="submit" value="submit" class="btn btn-sm btn-outline-primary mt-2">
+			</div>
+	    </div>
+		</form>
+        {% endfor %}
+		{% endif %}
+
+		<ul class="list-group list-group-flush">
+
+			<li class="list-group-item">
+				{{ result.title }}
+			</li>
+			<li class="list-group-item">
+				{{ result.description }}
+			</li>
+			
+			<li class="list-group-item">
+			<span class="badge text-bg-light">created</span>
+			<time>
+			{{ result.created_at }}
+			</time>
+			</li>
+			<li class="list-group-item">
+			{% if result.modified_at %}
+			<sup>updated</sup> 
+			<time>
+			{{ result.modified_at }}
+			</time>
+			{% endif %}
+			</li>
+		</ul>
+	</div>
+
+	<div class="card-footer">
+	<a class="btn btn-outline-primary btn-sm" href="/id-prv-days?id={{ result.id }}" role="button">
+		details
+	</a>
+	</div>
+
+</div>
+
+{% endif %}
+	  
+{% endblock %}
